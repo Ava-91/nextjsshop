@@ -20,13 +20,19 @@ export async function strapiFetch<T>(
             headers,
         }
     )
-    if (response.status === 401) {
+    if (response.status === 401) { //من یک متن میفرستم مثل یک رمز اگر بگیرد و درست نباشد 401 میده
+
         throw new Error("strapi_token_expired")
+
     }
 
-    if (!response.ok) {
+    if (!response.ok) { //زمانی که ارتباط اوکی نباشه یا نتوانسته دسترسی پیدا کند
+
         throw new Error(
-            `strapi request failed: ${response.status}`,
+            `strapi request failed: ${response.status}`, //هر پیغامی که داشت را برای ما نمایش دهد
         )
+
     }
+
+    return response.json() as Promise<T> //در نهایت اگر هیچ مشکلی نبود بیا اون اطلاعات رو برای من برگردون بهم بده
 }
