@@ -1,9 +1,6 @@
 //handlers واکنش ها در پروژه مثل اشتباه وارد کردن اطلاعات یا اشتباه ثبت نام کردن
-
 //auth اطلاعات رو مدیریت کنه یا همون احراز هویت
-
 // providers مشحض میکنیم نحوه ورود به چه شکلی میباشد یعنی ایمیل میخواد یا نمیخواد
-
 import NextAuth from "next-auth"
 
 import Credentials from "next-auth/providers/credentials"
