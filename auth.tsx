@@ -40,13 +40,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
                         }),
                     },
                 )
-
                 if (!response.ok) {
                     return null
                 }
-
                 const data = await response.json()
-
                 return {
                     id: String(data.user.id),
                     name: data.user.username,
@@ -57,22 +54,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             },
         }),
     ],
-
     //jwt که برای ما فرستاده یه سری اطلاعات داره من میخوام داخلش دوتا آیتم اضافه کنم به اسم آیدی د استراپی توکن
-
     callbacks: {
         async jwt({ token, user }) {
             console.log("BEFORE JWT:", token)
             console.log("USER:", user)
-
             if (user) {
                 token.id = user.id!
                 token.strapiToken = user.strapiToken
             }
-
             return token
         },
-
         //ما برای اولین بار زمانی که لاگین میشیم برای یکبار اطلاعات را استراپی پر میکند و میفرستد
 
         //اگر یوزر از قبل بوده باشه اگر ما تعریفی نکنیم برای ما یا null میزنه یا undefind
