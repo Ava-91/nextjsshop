@@ -26,7 +26,7 @@ export default function Registerform() {
       const data = await response.json();
 
       if (!response.ok) {
-        seterror(data.message || "registration failed.");
+        seterror(data.message || "Registration did not work. Shocking.");
         return;
       }
 
@@ -42,7 +42,7 @@ export default function Registerform() {
       router.push("/dashboard");
       router.refresh();
     } catch {
-      seterror("error in reaching the server");
+      seterror("The server is taking a little break. Try again.");
     } finally {
       setloading(false);
     }
