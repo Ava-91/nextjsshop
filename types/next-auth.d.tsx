@@ -4,6 +4,7 @@ declare module "next-auth" { //توسعه دادن یک بخش از یک واح�
     interface Session {
         user: {
             id: string
+            strapiToken: string
         } & DefaultSession["user"]
     }
 
