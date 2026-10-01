@@ -35,4 +35,23 @@ export default function Loginform() {
     router.push("/dashboard");
     router.refresh();
   }
+  return(
+    <form onSubmit={handlesubmit} className="">
+      <h1>login</h1>
+      <div className="">
+        <label className="">email</label>
+        <input type="email" className="" value={email} onChange={(event)=>setemail(event.target.value)}/>
+      </div>
+      <div className="">
+        <label className="">password</label>
+        <input type="password" className="" value={password} onChange={(event)=>setpassword(event.target.value)}/>
+      </div>
+      {error && (
+        <>
+          <p className="">{error}</p>
+        </>
+      )}
+      <button type="submit" disabled={loading} className="">{loading ? "ورود" : "... ورود"}</button>
+    </form>
+  )
 }
