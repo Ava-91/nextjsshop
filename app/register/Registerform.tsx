@@ -3,10 +3,11 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import loginpage from "../login/page";
 
-export default function Loginform() {
+export default function Registerform() {
   const router = useRouter();
-
+  const [username, setusername] = useState("");
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
   const [error, seterror] = useState("");
@@ -15,43 +16,90 @@ export default function Loginform() {
   async function handlesubmit(
     event: React.FormEvent<HTMLFormElement>
   ) {
-    event.preventDefault();//معمولا به صورت پیش فرض یه کارهایی مثل رفرش کردن ما با این دستور جلوگیری میکنیم از انجام کارهای پیش فرض
+    event.preventDefault();
     seterror("");
     setloading(true);
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,//همین جا بمون نرو یجای دیگه هدایت نکن به صفحه دیگه
-    });
-
-    setloading(false);
-
-    if (!result || result.error) {
-      seterror("email or password is incorrect knucklehead");
-      return;
+    try{
+        const response = await fetch(
+        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/auth/local/register`,
+        {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+            username,
+            email,
+            password,
+            }),
+        })
+        const data=await response.json()
+        if (!response.ok) {
+        seterror(data.message || "registration failed.");
+        return;
+        }
+        const loginresult=await signIn(
+            "credentials",{
+                email,
+                password,
+                redirect:false,
+            },
+        )
+        if(!loginresult || loginresult.error){
+            router.push("/login")
+            return
+        }
+        router.push("/dashboard")
+        router.refresh()
     }
-
-    router.push("/dashboard");
-    router.refresh();
+    catch{
+        seterror("error in reaching the server")
+    }
+    finally{
+        setloading(false)
+    }
   }
-  return(
+
+  return (
     <form onSubmit={handlesubmit} className="">
-      <h1>login</h1>
+      <h1>register</h1>
+
+      <div className="">
+        <label className="">username</label>
+        <input
+          type="text"
+          className=""
+          value={username}
+          onChange={(event) => setusername(event.target.value)}
+        />
+      </div>
+
       <div className="">
         <label className="">email</label>
-        <input type="email" className="" value={email} onChange={(event)=>setemail(event.target.value)}/>
+        <input
+          type="email"
+          className=""
+          value={email}
+          onChange={(event) => setemail(event.target.value)}
+        />
       </div>
+
       <div className="">
         <label className="">password</label>
-        <input type="password" className="" value={password} onChange={(event)=>setpassword(event.target.value)}/>
+        <input
+          type="password"
+          className=""
+          value={password}
+          onChange={(event) => setpassword(event.target.value)}
+        />
       </div>
-      {error && (
-        <>
-          <p className="">{error}</p>
-        </>
-      )}
-      <button type="submit" disabled={loading} className="">{loading ? "ورود" : "... ورود"}</button>
+
+      {error && <p className="">{error}</p>}
+
+      <button type="submit" disabled={loading} className="">
+        {loading ? "Registering..." : "Register"}
+      </button>
     </form>
-  )
+  );
 }
