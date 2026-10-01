@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       typeof password !== "string"
     ) {
       return NextResponse.json(
-        { message: "اطلاعات وارد شده معتبر نمی‌باشد" },
+        { message: "The information provided is invalid" },
         { status: 400 }
       )
     }
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     if (!response.ok) {
       return NextResponse.json(
         {
-          message: data?.error?.message || "ثبت نام انجام نشد",
+          message: data?.error?.message || "Registration failed",
         },
         {
           status: response.status,
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   } catch (error) {//دوست try هست برخورد خطاها رو انجام میده یا اگر کد نتونست اجرا بشه اطلاع میده
     return NextResponse.json(
       {
-        message: "خطا در ارتباط با سرور",
+        message: "Error connecting to the server",
       },
       {
         status: 500,
