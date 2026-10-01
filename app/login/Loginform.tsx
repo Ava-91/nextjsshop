@@ -23,7 +23,7 @@ export default function Loginform() {
     setloading(false);
 
     if (!result || result.error) {
-      seterror("email or password is incorrect knucklehead");
+      seterror("Those credentials did not work. A bold choice.");
       return;
     }
 
