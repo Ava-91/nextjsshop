@@ -44,7 +44,7 @@ export default function Loginform() {
           <input type="password" value={password} onChange={(event)=>setpassword(event.target.value)}/>
         </div>
         {error && <p className="form-error">{error}</p>}
-        <button type="submit" disabled={loading} className="form-submit">{loading ? "ورود" : "... ورود"}</button>
+        <button type="submit" disabled={loading} className="form-submit">{loading ? "Logging in..." : "Log in"}</button>
       </form>
     </div>
   )
