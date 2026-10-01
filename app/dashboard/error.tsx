@@ -13,7 +13,7 @@ export default function Error({
   reset: () => void;
 }) {
   useEffect(() => {
-    if (error.message === "strapi-token-expired") {
+    if (error.message === "strapi_token_expired") {
       signOut({
         callbackUrl: "/login",
       });
