@@ -1,8 +1,10 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --border: #ffffff;
+  --muted: #a3a3a3;
 }
 
 @theme inline {
@@ -12,15 +14,89 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+* { box-sizing: border-box; }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+a { color: inherit; }
+button, input { font: inherit; }
+
+.site-nav { border-bottom: 1px solid #fff; padding: 1rem 1.5rem; }
+.nav-link, .nav-button, .home-button {
+  border: 1px solid #fff;
+  padding: .5rem .75rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+.nav-link:hover, .nav-button:hover, .home-button:hover { background: #fff; color: #000; }
+.nav-user { color: var(--muted); }
+
+.form-page {
+  min-height: calc(100vh - 73px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+.form-box {
+  width: 100%;
+  max-width: 28rem;
+  border: 1px solid #fff;
+  padding: 2rem;
+}
+.form-box h1 { margin: 0 0 1.5rem; }
+.form-field { margin-bottom: 1rem; }
+.form-field label { display: block; margin-bottom: .4rem; }
+.form-field input {
+  width: 100%;
+  border: 1px solid #fff;
+  padding: .7rem;
+  background: #000;
+  color: #fff;
+  outline: none;
+}
+.form-field input:focus { background: #111; }
+.form-submit {
+  border: 1px solid #fff;
+  padding: .7rem 1rem;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+}
+.form-submit:hover { background: #fff; color: #000; }
+.form-submit:disabled { cursor: not-allowed; opacity: .5; }
+.form-error { margin: 0 0 1rem; }
+
+.dashboard { padding: 2rem; }
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 2rem;
+}
+.product-card { border: 1px solid #fff; padding: 1.25rem; }
+.product-card h3 { margin-top: 0; }
+.product-price { margin-bottom: 0; font-weight: 600; }
+
+.home {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+.home-box {
+  width: 100%;
+  max-width: 42rem;
+  border: 1px solid #fff;
+  padding: 4rem 2rem;
+}
+.home-box h1 { margin: 0 0 1rem; font-size: 2.5rem; }
+.home-box p { margin: 0 0 2rem; color: var(--muted); }
