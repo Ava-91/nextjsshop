@@ -6,33 +6,19 @@ export default async function Navbar() {
   const session = await auth()
 
   return (
-    <nav className="flex items-center justify-between border-b px-6 py-4">
-      <Link href="/" className="font-semibold">
-        Main Page
-      </Link>
-
+    <nav className="site-nav flex items-center justify-between">
+      <Link href="/" className="nav-link">Main Page</Link>
       <div className="flex items-center gap-4">
         {session ? (
           <>
-            <Link href="/dashboard" className="hover:underline">
-              Dashboard
-            </Link>
-
-            <span className="text-gray-600">
-              {session.user.name}
-            </span>
-
+            <Link href="/dashboard" className="nav-link">Dashboard</Link>
+            <span className="nav-user">{session.user.name}</span>
             <LogoutButton />
           </>
         ) : (
           <>
-            <Link href="/login" className="hover:underline">
-              Login
-            </Link>
-
-            <Link href="/register" className="hover:underline">
-              Register
-            </Link>
+            <Link href="/login" className="nav-link">Login</Link>
+            <Link href="/register" className="nav-link">Register</Link>
           </>
         )}
       </div>
