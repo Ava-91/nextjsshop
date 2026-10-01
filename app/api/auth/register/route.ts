@@ -10,7 +10,7 @@ export async function POST(request: Request) {
       typeof password !== "string"
     ) {
       return NextResponse.json(
-        { message: "The information provided is invalid" },
+        { message: "Something in the form is not quite right. Naturally." },
         { status: 400 }
       )
     }
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
     if (!response.ok) {
       return NextResponse.json(
         {
-          message: data?.error?.message || "Registration failed",
+          message: data?.error?.message || "Registration did not work. The server has opinions.",
         },
         {
           status: response.status,
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
   } catch (error) {//دوست try هست برخورد خطاها رو انجام میده یا اگر کد نتونست اجرا بشه اطلاع میده
     return NextResponse.json(
       {
-        message: "Error connecting to the server",
+        message: "The server seems to be unavailable. Excellent timing.",
       },
       {
         status: 500,
