@@ -3,7 +3,6 @@
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import loginpage from "../login/page";
 
 export default function Registerform() {
   const router = useRouter();
@@ -22,7 +21,7 @@ export default function Registerform() {
 
     try{
         const response = await fetch(
-        `${process.env.NEXT_PUBLIC_STRAPI_URL}/api/auth/local/register`,
+        `/api/auth/register`,
         {
             method: "POST",
             headers: {
